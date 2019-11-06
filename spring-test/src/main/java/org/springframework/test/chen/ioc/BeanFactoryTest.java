@@ -14,5 +14,6 @@ public class BeanFactoryTest {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-config.xml");
 		Animal animal = (Animal) applicationContext.getBean("animalFcatoryBean");
 		animal.playAnimal();
+		System.out.println("BeanFactoryTest end");
 	}
 }

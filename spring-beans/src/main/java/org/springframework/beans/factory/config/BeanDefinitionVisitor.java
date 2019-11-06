@@ -78,7 +78,7 @@ public class BeanDefinitionVisitor {
 		visitFactoryMethodName(beanDefinition);
 		visitScope(beanDefinition);
 		if (beanDefinition.hasPropertyValues()) {
-			visitPropertyValues(beanDefinition.getPropertyValues());
+			visitPropertyValues(beanDefinition.getPropertyValues());    //核心，解析${}的地方
 		}
 		if (beanDefinition.hasConstructorArgumentValues()) {
 			ConstructorArgumentValues cas = beanDefinition.getConstructorArgumentValues();

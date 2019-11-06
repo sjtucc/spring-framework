@@ -1,10 +1,4 @@
-package org.springframework.test.chen.ioc; /**
- * @Title: ${file_name}
- * @Description:
- * @author chenchen
- * @date 2019/10/1513:31
- */
-
+package org.springframework.test.chen.ioc;
 /**
  * @Description:
  * @author chenchen
