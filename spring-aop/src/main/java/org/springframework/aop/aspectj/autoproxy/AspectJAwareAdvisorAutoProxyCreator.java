@@ -96,7 +96,7 @@ public class AspectJAwareAdvisorAutoProxyCreator extends AbstractAdvisorAutoProx
 
 	@Override
 	protected boolean shouldSkip(Class<?> beanClass, String beanName) {
-		// TODO: Consider optimization by caching the list of the aspect names 未来会优化，进行缓存。
+		// 将当前系统中所有的切面类的切面逻辑进行封装，从而得到目标Advisor
 		List<Advisor> candidateAdvisors = findCandidateAdvisors();
         // TODO 芋艿，暂时没调试到，符合它的情况
 		for (Advisor advisor : candidateAdvisors) {

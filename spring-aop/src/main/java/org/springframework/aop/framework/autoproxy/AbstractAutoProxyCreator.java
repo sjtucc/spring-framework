@@ -467,11 +467,11 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	protected Object createProxy(Class<?> beanClass, @Nullable String beanName,
 			@Nullable Object[] specificInterceptors, TargetSource targetSource) {
 	    // TODO 芋艿，稍后在看
-		if (this.beanFactory instanceof ConfigurableListableBeanFactory) {
+		if (this.beanFactory instanceof ConfigurableListableBeanFactory) { //目标类,将其保存到beandefinition
 			AutoProxyUtils.exposeTargetClass((ConfigurableListableBeanFactory) this.beanFactory, beanName, beanClass);
 		}
 
-		// 创建 ProxyFactory 对象，负责创建 Proxy 对象的工厂
+		// 创建 ProxyFactory 对象，负责创建 Proxy 对象的工厂,因为有jdk和cglib两种
 		ProxyFactory proxyFactory = new ProxyFactory();
 		// 获取当前类的属性，到 ProxyFactory 中
 		proxyFactory.copyFrom(this);
@@ -479,12 +479,12 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		// 判断对于给定的 Bean 是否使用 targetClass ，而不是接口代理。
         //      使用 CGLIB 代理时，相当于使用 targetClass 代理
         //      使用 JDK 代理时，相当于使用期接口代理。
-		if (!proxyFactory.isProxyTargetClass()) {
+		if (!proxyFactory.isProxyTargetClass()) {   //默认是false,表示没有开启cglib代理方式
 		    // 是否需要代理 targetClass
-			if (shouldProxyTargetClass(beanClass, beanName)) {
+			if (shouldProxyTargetClass(beanClass, beanName)) {  //用来判断@EnableAspectJAutoProxy注解中的proxyTargetClass参数
 				proxyFactory.setProxyTargetClass(true); // 设置使用 targetClass 代理
 			} else {
-			    // 评估是否代理接口
+			    // 评估是否代理接口,校验接口的合理性，比如InitializingBean这样的内部回调接口，不会被实现jdk动态代理。
 				evaluateProxyInterfaces(beanClass, proxyFactory);
 			}
 		}
